@@ -8,6 +8,7 @@ import Settings from './pages/Settings';
 import Report from './pages/Report';
 import Manage from './pages/Manage';
 import FileUpload from './pages/FileUpload';
+import ImageUpload from './pages/ImageUpload';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
 					<Route path="report" element={<Report />} />
 					<Route path="participantsList" element={<Manage />} />
 					<Route path="fileUpload" element={<FileUpload />} />
+					<Route path="imageUpload" element={<ImageUpload />} />
 				</Route>
 			</Routes>
 		</Router>
