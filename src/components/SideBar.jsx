@@ -30,7 +30,7 @@ function SideBar({ onClose }) {
             onClick={onClose}
             className={({ isActive }) =>
                 `group flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-300
-                ${isActive ? 'bg-blue-400 shadow-lg' : 'hover:bg-blue-400 hover:scale-103'}`
+                ${isActive ? 'bg-blue-500 shadow-lg' : 'hover:bg-blue-500 hover:scale-103'}`
             }
         >
             {({ isActive }) => (

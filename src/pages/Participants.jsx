@@ -156,40 +156,42 @@ function Participants() {
                         <div className="text-center py-4 text-red-500 font-semibold"> Error : {fetchError} </div>
                     )}
                     {!fetchLoading && !fetchError && (
-                        <table className="text-center w-full bg-white rounded shadow-md border border-gray-300 border-collapse">
-                            <thead className="bg-blue-500 text-white overflow-auto">
-                                <tr className='h-12'>
-                                    <th className="px-4 py-2 border border-gray-300">S. No.</th>
-                                    <th className="px-4 py-2 border border-gray-300">Team Id</th>
-                                    <th className="px-4 py-2 border border-gray-300">Participants</th>
-                                    <th className="px-4 py-2 border border-gray-300">Contact No</th>
-                                    <th className="px-4 py-2 border border-gray-300">Department Name</th>
-                                    <th className="px-4 py-2 border border-gray-300">College Name</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {(data?.data || []).length > 0 ? (
-                                    (data.data).map((user, index) => (
-                                        <tr key={user.teamId} className="border h-12">
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
-                                                {user.participants.map((participant, i) => (
-                                                    <div key={i}>{participant}</div>
-                                                ))}
-                                            </td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.contactNo}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.deptName}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.clgName}</td>
-                                        </tr>
-                                    ))
-                                ) : (
+                        <div className="overflow-x-auto shadow rounded-lg bg-white p-4">
+                            <table className="text-center w-full bg-white rounded shadow-md border border-gray-300 border-collapse">
+                                <thead className="bg-blue-500 text-white overflow-auto">
                                     <tr className='h-12'>
-                                        <td colSpan={7} className="py-2 text-gray-500">No users found.</td>
+                                        <th className="px-4 py-2 border border-gray-300">S. No.</th>
+                                        <th className="px-4 py-2 border border-gray-300">Team Id</th>
+                                        <th className="px-4 py-2 border border-gray-300">Participants</th>
+                                        <th className="px-4 py-2 border border-gray-300">Contact No</th>
+                                        <th className="px-4 py-2 border border-gray-300">Department Name</th>
+                                        <th className="px-4 py-2 border border-gray-300">College Name</th>
                                     </tr>
-                                )}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {(data?.data || []).length > 0 ? (
+                                        (data.data).map((user, index) => (
+                                            <tr key={user.teamId} className="border h-12">
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
+                                                    {user.participants.map((participant, i) => (
+                                                        <div key={i}>{participant}</div>
+                                                    ))}
+                                                </td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.contactNo}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.deptName}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.clgName}</td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr className='h-12'>
+                                            <td colSpan={7} className="py-2 text-gray-500">No users found.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
                     )}
                 </>
             }
