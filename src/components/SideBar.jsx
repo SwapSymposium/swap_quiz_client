@@ -30,7 +30,7 @@ function SideBar({ onClose }) {
             onClick={onClose}
             className={({ isActive }) =>
                 `group flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-300
-                ${isActive ? 'bg-blue-600 shadow-lg' : 'hover:bg-blue-500/50 hover:scale-103'}`
+                ${isActive ? 'bg-green-600 shadow-lg' : 'hover:bg-green-500/50 hover:scale-103'}`
             }
         >
             {({ isActive }) => (
@@ -38,8 +38,8 @@ function SideBar({ onClose }) {
                     <div
                         className={`w-7 h-7 flex items-center justify-center rounded-md transition-all duration-300
                             ${isActive
-                                ? 'bg-gray-100 text-blue-600 shadow-md'
-                                : 'bg-blue-600 text-white group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-400 group-hover:to-blue-600 group-hover:shadow-lg'
+                                ? 'bg-gray-100 text-green-600 shadow-md'
+                                : 'bg-green-600 text-white group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-green-400 group-hover:to-green-600 group-hover:shadow-lg'
                             }`}
                     >
                         <FontAwesomeIcon
@@ -60,7 +60,7 @@ function SideBar({ onClose }) {
     return (
         <div
             className="fixed top-0 left-0 h-full w-72 py-6 px-4 
-                    bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600
+                    bg-gradient-to-br from-green-800 via-green-700 to-green-600
                     bg-opacity-95 backdrop-blur-xl
                     shadow-2xl border-r border-white/20
                     z-30 overflow-y-auto transition-transform duration-300"

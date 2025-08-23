@@ -13,7 +13,7 @@ function LoginForm() {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [teamId, setTeamId] = useState("");
     const [password, setPassword] = useState("");
-    const { loginUser, loading, error, setError } = useAuth()
+    const { loginUser, error, setError } = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -27,7 +27,7 @@ function LoginForm() {
                 const eventName = localStorage.getItem('event');
                 navigate(`/layout/${roleType}/${eventName}/${teamId}/guidelines`);
             } else {
-                setError("Login Failed");
+                setError(error);
             }
         }
     }
@@ -36,7 +36,7 @@ function LoginForm() {
         <div className="min-h-screen flex font-sans">
 
             {/* Left Branding Section */}
-            <div className="hidden lg:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-blue-800 via-blue-700 to-blue-600 text-white p-10 shadow-2xl relative overflow-hidden">
+            <div className="hidden lg:flex flex-col justify-center items-center w-1/2 bg-gradient-to-br from-green-800 via-green-700 to-green-600 text-white p-10 shadow-2xl relative overflow-hidden">
                 {/* Decorative blurred shapes */}
                 <div className="absolute inset-0 opacity-25 pointer-events-none">
                     <div className="absolute w-96 h-96 bg-sky-600 rounded-full blur-[140px] top-[-50px] left-[-60px] animate-pulse"></div>
@@ -87,7 +87,7 @@ function LoginForm() {
                     <div className="absolute w-72 h-72 bg-sky-300 rounded-full blur-3xl top-[-40px] left-[-40px]"></div>
                     <div className="absolute w-64 h-64 bg-indigo-300 rounded-full blur-3xl bottom-[-50px] right-[-50px]"></div>
                 </div>
-                <div className="w-full max-w-md relative rounded-2xl shadow-2xl border-t-4 border-blue-500 overflow-hidden bg-white">
+                <div className="w-full max-w-md relative rounded-2xl shadow-2xl border-t-4 border-green-500 overflow-hidden bg-white">
                     <div
                         className="absolute inset-0 flex items-center justify-center opacity-8"
                         style={{
@@ -108,11 +108,11 @@ function LoginForm() {
                         <div className="relative mb-8">
                             <FontAwesomeIcon
                                 icon={faUser}
-                                className="absolute left-4 top-4.5 text-blue-600"
+                                className="absolute left-4 top-4.5 text-green-600"
                             />
                             <input
                                 type="text"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-500 rounded-lg outline-none text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-500 rounded-lg outline-none text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-green-500 focus:border-green-500 transition"
                                 placeholder="USERNAME"
                                 onChange={(e) => setTeamId(e.target.value.toUpperCase())}
                                 required
@@ -121,11 +121,11 @@ function LoginForm() {
                         <div className="relative mb-8">
                             <FontAwesomeIcon
                                 icon={faLock}
-                                className="absolute left-4 top-4.5 text-blue-600"
+                                className="absolute left-4 top-4.5 text-green-600"
                             />
                             <input
                                 type="password"
-                                className="w-full pl-12 pr-4 py-3 border border-gray-500 rounded-lg outline-none text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition"
+                                className="w-full pl-12 pr-4 py-3 border border-gray-500 rounded-lg outline-none text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-green-500 focus:border-green-500 transition"
                                 placeholder="PASSWORD"
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
@@ -134,7 +134,7 @@ function LoginForm() {
                         <button
                             type="submit"
                             onClick={handleSubmit}
-                            className="w-full py-3 bg-gradient-to-r from-blue-700 to-blue-600 hover:from-blue-600 hover:to-blue-700 
+                            className="w-full py-3 bg-gradient-to-r from-green-700 to-green-600 hover:from-green-600 hover:to-green-700 
                                 text-white font-semibold rounded-lg shadow-md transition-transform transform hover:scale-[1.01] 
                                 flex items-center justify-center gap-2 cursor-pointer"
                         >

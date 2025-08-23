@@ -9,6 +9,7 @@ import Report from './pages/Report';
 import Manage from './pages/Manage';
 import FileUpload from './pages/FileUpload';
 import ImageUpload from './pages/ImageUpload';
+import ProtectedRoute from './auth/ProtectedRoutes';
 
 function App() {
 
@@ -16,7 +17,11 @@ function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<LoginPage />} />
-				<Route path="/layout/:roleType/:eventName/:teamId/*" element={<OverLayout />}>
+				<Route path="/layout/:roleType/:eventName/:teamId/*"
+					element={<ProtectedRoute>
+						<OverLayout />
+					</ProtectedRoute>}
+				>
 					<Route path="guidelines" element={<GuideLines />} />
 					<Route path="quiz" element={<McqQuiz />} />
 					<Route path="settings" element={<Settings />} />
