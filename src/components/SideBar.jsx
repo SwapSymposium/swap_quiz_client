@@ -8,8 +8,8 @@ import { faClipboardList, faGear, faUserGroup, faFileCircleCheck, faRightFromBra
 function SideBar({ onClose }) {
 
     const { teamId } = useParams();
-    const roleType = localStorage.getItem('role');
-    const eventName = localStorage.getItem('event');
+    const roleType = sessionStorage.getItem('role');
+    const eventName = sessionStorage.getItem('event');
 
     const navItems = [
         { name: 'Participants List', path: `/layout/${roleType}/${eventName}/${teamId}/participantsList`, icon: faUserGroup, show: roleType === 'ADMIN' },

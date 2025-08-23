@@ -6,10 +6,10 @@ function Settings() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
     const [allowTest, setAllowTest] = useState(false);
-    const [time, setTime] = useState(null)
+    const [time, setTime] = useState(40)
     const { editData, loading: editLoading, error: editError } = useEdit();
     const { fetchData, loading: fetchLoding, error: fetchError, data } = useFetch();
-    const event = localStorage.getItem('event');
+    const event = sessionStorage.getItem('event');
 
     useEffect(() => {
         const fetchTestAccess = async () => {

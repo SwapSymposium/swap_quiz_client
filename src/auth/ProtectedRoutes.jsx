@@ -13,9 +13,9 @@ const ProtectedRoute = ({ children }) => {
             const result = await verifyTokenAPI(apiUrl, teamId);
             if (result && result.status === 200) { setIsValid(true) }
             else {
-                localStorage.removeItem('authToken');
-                localStorage.removeItem('role');
-                localStorage.removeItem('event');
+                sessionStorage.removeItem('authToken');
+                sessionStorage.removeItem('role');
+                sessionStorage.removeItem('event');
                 setIsValid(false)
             }
         }

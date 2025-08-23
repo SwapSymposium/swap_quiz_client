@@ -6,7 +6,7 @@ export const login = async (apiUrl, teamId, password) => {
 }
 
 export const verifyTokenAPI = async (apiUrl, teamId) => {
-    const token = localStorage.getItem('authToken')
+    const token = sessionStorage.getItem('authToken')
     if (!token) return;
     try {
         const response = await axios.post(`${apiUrl}/user/verifyToken`, { teamId }, {

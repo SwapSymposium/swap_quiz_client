@@ -12,10 +12,10 @@ export const useAuth = () => {
         try {
             const response = await login(apiUrl, teamId, password);
             if (response?.data.status === 200 && response?.data?.token) {
-                localStorage.setItem('authToken', response.data.token);
+                sessionStorage.setItem('authToken', response.data.token);
                 if (response.data.user.role && response.data.user.event) {
-                    localStorage.setItem('role', response.data.user.role);
-                    localStorage.setItem('event', response.data.user.event);
+                    sessionStorage.setItem('role', response.data.user.role);
+                    sessionStorage.setItem('event', response.data.user.event);
                 }
             }
             setLoading(false);

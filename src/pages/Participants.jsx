@@ -12,11 +12,15 @@ function Participants() {
         contactNo: '', deptName: '', clgName: ''
     });
     const apiUrl = import.meta.env.VITE_API_URL;
-    const event = localStorage.getItem('event');
+    const event = sessionStorage.getItem('event');
 
     useEffect(() => {
-        fetchData(`${apiUrl}/participants/fetchParticipants`, { event })
-    }, [])
+        const getData = async () => {
+            await fetchData(`${apiUrl}/participants/fetchParticipants`, { event });
+        }
+        getData()
+    }, [event])
+
 
     const { fetchData, loading: fetchLoading, error: fetchError, data } = useFetch();
     const { addData, loading: addLoading, addError } = useAdd();

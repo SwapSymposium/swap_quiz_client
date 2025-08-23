@@ -26,8 +26,8 @@ function LoginForm() {
         } else {
             const data = await loginUser(`${apiUrl}/user/login`, teamId, password);
             if (data?.data?.user?.role && data?.data?.user?.event) {
-                const roleType = localStorage.getItem('role');
-                const eventName = localStorage.getItem('event');
+                const roleType = sessionStorage.getItem('role');
+                const eventName = sessionStorage.getItem('event');
                 if (roleType === 'ADMIN') {
                     navigate(`/layout/${roleType}/${eventName}/${teamId}/participantsList`);
                 }
@@ -35,7 +35,7 @@ function LoginForm() {
 
                 }
                 else {
-
+                    navigate(`/layout/${roleType}/${eventName}/${teamId}/guidelines`);
                 }
             }
         }
