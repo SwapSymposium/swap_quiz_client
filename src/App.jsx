@@ -6,7 +6,7 @@ import GuideLines from './pages/GuideLines';
 import McqQuiz from './pages/McqQuiz';
 import Settings from './pages/Settings';
 import Report from './pages/Report';
-import Manage from './pages/Manage';
+import Participants from './pages/Participants';
 import FileUpload from './pages/FileUpload';
 import ImageUpload from './pages/ImageUpload';
 import ProtectedRoute from './auth/ProtectedRoutes';
@@ -26,7 +26,7 @@ function App() {
 					<Route path="quiz" element={<McqQuiz />} />
 					<Route path="settings" element={<Settings />} />
 					<Route path="report" element={<Report />} />
-					<Route path="participantsList" element={<Manage />} />
+					<Route path="participantsList" element={<Participants />} />
 					<Route path="fileUpload" element={<FileUpload />} />
 					<Route path="imageUpload" element={<ImageUpload />} />
 				</Route>

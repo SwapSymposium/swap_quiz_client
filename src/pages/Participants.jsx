@@ -4,16 +4,19 @@ import { faPlus, faClose, faSave } from '@fortawesome/free-solid-svg-icons';
 import { useAdd } from '../hooks/useAdd';
 import { useFetch } from '../hooks/useFetch';
 
-function Manage() {
+function Participants() {
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [formData, setFormData] = useState({
-        userId: '', password: 'JMC', memberName1: '', memberName2: '',
+        teamId: '', password: 'JMC', participants: [''],
         contactNo: '', deptName: '', clgName: ''
     });
     const apiUrl = import.meta.env.VITE_API_URL;
+    const event = localStorage.getItem('event');
 
-    useEffect(() => { fetchData(`${apiUrl}/participants/fetchParticipants`) }, [])
+    useEffect(() => {
+        fetchData(`${apiUrl}/participants/fetchParticipants`, { event })
+    }, [])
 
     const { fetchData, loading: fetchLoading, error: fetchError, data } = useFetch();
     const { addData, loading: addLoading, addError } = useAdd();
@@ -23,18 +26,35 @@ function Manage() {
     }
 
     const handleSubmit = async () => {
-        const data = await addData(`${apiUrl}/participants/addUser`, formData);
+        const payload = { ...formData, role: "PARTICIPANTS", event }
+        const data = await addData(`${apiUrl}/participants/addUser`, payload);
         if (data) {
-            alert('User added sucessfully');
-            setIsAddModalOpen(false)
+            alert('User added successfully');
+            setIsAddModalOpen(false);
+            fetchData(`${apiUrl}/participants/fetchParticipants`, { event });
         }
+    }
+
+    const handleParticipantChange = (index, value) => {
+        const newParticipants = [...formData.participants];
+        newParticipants[index] = value;
+        setFormData({ ...formData, participants: newParticipants });
+    }
+
+    const addParticipantField = () => {
+        setFormData({ ...formData, participants: [...formData.participants, ''] });
+    }
+
+    const removeParticipantField = (index) => {
+        const newParticipants = formData.participants.filter((_, i) => i !== index);
+        setFormData({ ...formData, participants: newParticipants });
     }
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <div className="flex justify-end mb-5">
                 <button onClick={() => setIsAddModalOpen(!isAddModalOpen)}
-                    className="cursor-pointer flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow transition duration-200"
+                    className="cursor-pointer flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md shadow transition duration-200"
                 >
                     <FontAwesomeIcon icon={faPlus} />
                     <span>Add User</span>
@@ -49,30 +69,39 @@ function Manage() {
                             <input
                                 autoComplete='off'
                                 type="text"
-                                value={formData.staffId}
-                                name='userId'
-                                placeholder="User Id"
+                                value={formData.teamId}
+                                name='teamId'
+                                placeholder="Team Id"
                                 onChange={handleChange}
                                 className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             />
-                            <input
-                                autoComplete='off'
-                                type="text"
-                                value={formData.memberName1}
-                                name='memberName1'
-                                placeholder="Member 1"
-                                onChange={handleChange}
-                                className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            />
-                            <input
-                                autoComplete='off'
-                                type="text"
-                                value={formData.memberName2}
-                                name='memberName2'
-                                placeholder="Member 2"
-                                onChange={handleChange}
-                                className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            />
+                            {formData.participants.map((participant, index) => (
+                                <div key={index} className="flex gap-4 items-center">
+                                    <input
+                                        type="text"
+                                        value={participant}
+                                        placeholder={`Participant ${index + 1}`}
+                                        onChange={(e) => handleParticipantChange(index, e.target.value)}
+                                        className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 flex-1"
+                                    />
+                                    {formData.participants.length > 1 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => removeParticipantField(index)}
+                                            className="bg-red-500 text-white px-6 py-1 font-semibold h-full rounded-md"
+                                        >
+                                            Remove
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                onClick={addParticipantField}
+                                className="bg-green-500 text-white px-4 py-2 rounded-md font-semibold"
+                            >
+                                Add Participant
+                            </button>
                             <input
                                 autoComplete='off'
                                 type="text"
@@ -86,14 +115,14 @@ function Manage() {
                                 autoComplete='off'
                                 type="text"
                                 value={formData.deptName}
-                                placeholder="Dept Name"
+                                placeholder="Department Name"
                                 name='deptName'
                                 onChange={handleChange}
                                 className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                             />
                             <input
                                 autoComplete='off'
-                                type="password"
+                                type="text"
                                 value={formData.clgName}
                                 name='clgName'
                                 placeholder="College Name"
@@ -128,25 +157,27 @@ function Manage() {
                     )}
                     {!fetchLoading && !fetchError && (
                         <table className="text-center w-full bg-white rounded shadow-md border border-gray-300 border-collapse">
-                            <thead className="bg-blue-600 text-white overflow-auto">
+                            <thead className="bg-blue-500 text-white overflow-auto">
                                 <tr className='h-12'>
                                     <th className="px-4 py-2 border border-gray-300">S. No.</th>
-                                    <th className="px-4 py-2 border border-gray-300">User Id</th>
-                                    <th className="px-4 py-2 border border-gray-300">Member Name 1</th>
-                                    <th className="px-4 py-2 border border-gray-300">Member Name 2</th>
+                                    <th className="px-4 py-2 border border-gray-300">Team Id</th>
+                                    <th className="px-4 py-2 border border-gray-300">Participants</th>
                                     <th className="px-4 py-2 border border-gray-300">Contact No</th>
-                                    <th className="px-4 py-2 border border-gray-300">Dept Name</th>
-                                    <th className="px-4 py-2 border border-gray-300">Clg Name</th>
+                                    <th className="px-4 py-2 border border-gray-300">Department Name</th>
+                                    <th className="px-4 py-2 border border-gray-300">College Name</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.length > 0 ? (
-                                    data.map((user, index) => (
-                                        <tr key={user.userId} className="border h-12">
+                                {(data?.data || []).length > 0 ? (
+                                    (data.data).map((user, index) => (
+                                        <tr key={user.teamId} className="border h-12">
                                             <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.userId}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.memberName1}</td>
-                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.memberName2}</td>
+                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
+                                            <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
+                                                {user.participants.map((participant, i) => (
+                                                    <div key={i}>{participant}</div>
+                                                ))}
+                                            </td>
                                             <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.contactNo}</td>
                                             <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.deptName}</td>
                                             <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.clgName}</td>
@@ -166,4 +197,4 @@ function Manage() {
     )
 }
 
-export default Manage
+export default Participants

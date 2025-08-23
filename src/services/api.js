@@ -2,19 +2,17 @@ import axios from 'axios';
 
 export const login = async (apiUrl, teamId, password) => {
     const response = await axios.post(`${apiUrl}`, { teamId, password })
-    console.log(response)
     return response;
 }
 
-export const verifyTokenAPI = async (userId) => {
-
+export const verifyTokenAPI = async (apiUrl, teamId) => {
     const token = localStorage.getItem('authToken')
     if (!token) return;
-
     try {
-        const response = await axios.post(`${apiUrl}/auth/verifyToken`, { userId }, {
+        const response = await axios.post(`${apiUrl}/user/verifyToken`, { teamId }, {
             headers: { Authorization: `Bearer ${token}` }
         })
+        // console.log(response)
         return response;
     } catch (error) {
         console.log('Error in Verifying Token : ', error)
