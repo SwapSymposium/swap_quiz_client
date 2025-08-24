@@ -8,9 +8,9 @@ const McqQuiz = () => {
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const event = sessionStorage.getItem('event');
 	const { teamId } = useParams();
-	const [timeLeft, setTimeLeft] = useState(0.5 * 60);
+	const [timeLeft, setTimeLeft] = useState(60 * 60);
 	const [timerStarted, setTimerStarted] = useState(false);
-	const [questions, setQuestions] = useState([])
+	const [questions, setQuestions] = useState([]);
 
 	useEffect(() => {
 		const fetchQuizQuestions = async () => {
@@ -21,7 +21,6 @@ const McqQuiz = () => {
 		}
 		fetchQuizQuestions();
 	}, [event]);
-
 
 	const { addData } = useAdd();
 	const { fetchData } = useFetch();
@@ -41,8 +40,7 @@ const McqQuiz = () => {
 	const questionRefs = useRef([]);
 
 	const formatTime = (seconds) => {
-		const m = Math.floor(seconds / 60);
-		const s = seconds % 60;
+		const m = Math.floor(seconds / 60); const s = seconds % 60;
 		return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
 	};
 
@@ -53,7 +51,8 @@ const McqQuiz = () => {
 	useEffect(() => {
 		const checkAlreadyAttended = async () => {
 			const response = await fetchData(`${apiUrl}/participants/alreadyAttended`, { teamId });
-			if (response?.attended) { setAlreadyAttendedFlag(true) }
+			// console.log(response)
+			if (response?.data?.attended) { setAlreadyAttendedFlag(true) }
 		}
 		checkAlreadyAttended();
 	}, [apiUrl, teamId]);
@@ -67,10 +66,11 @@ const McqQuiz = () => {
 
 	const scores = useMemo(() => {
 		return Object.keys(answers).reduce(
-			(total, key) => total + (answers[key] === questions[key].answer ? 1 : 0),
-			0
+			(total, key) => total + (answers[key] === questions[key].answer ? 1 : 0), 0
 		);
 	}, [answers]);
+
+	// console.log(scores)
 
 	const handleStart = async () => {
 		const response = await fetchData(`${apiUrl}/participants/startRights`, { event });
@@ -105,7 +105,8 @@ const McqQuiz = () => {
 			})
 			return
 		}
-		const response = await addData(`${apiUrl}/participants/quizSave`, { teamId, scores, answers })
+		// console.log(answers)
+		const response = await addData(`${apiUrl}/participants/quizSave`, { teamId, scores, answers, event })
 		if (response?.status === 200) { setAlreadyAttendedFlag(true) }
 		else { setMessage("Error saving quiz. Please try again.") }
 	}
@@ -122,7 +123,7 @@ const McqQuiz = () => {
 						</div>
 					</div>
 					<h1 className="text-3xl font-extrabold text-green-700 mb-4 drop-shadow-sm">
-						Quiz Completed Successfully!
+						{event} Prelims Completed Successfully!
 					</h1>
 					<p className="text-gray-700 text-lg mb-6 leading-relaxed">
 						Your answers have been submitted. Sit tight — results will be available soon!
@@ -146,9 +147,9 @@ const McqQuiz = () => {
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
 			<div className="bg-white shadow-2xl rounded-xl p-8 w-full relative">
-				<div className={`mb-6  ${!started ? "flex items-center justify-between" : "text-center"}`}>
+				<div className={`mb-6 ${!started ? "flex items-center justify-between" : "text-center"}`}>
 					<h1 className="text-2xl font-bold text-gray-800">
-						Stylify Web Design Quiz
+						{event} Web Design Quiz
 					</h1>
 					{!started && (
 						<div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2">
@@ -184,11 +185,15 @@ const McqQuiz = () => {
 								className={`p-5 border rounded-lg shadow-sm transition-all ${currentUnanswered === qIndex
 									? "border-red-500 bg-red-50"
 									: "border-gray-300 hover:shadow-md"
-								}`}
+									}`}
 							>
-								<h2 className="font-semibold text-gray-800 mb-4" style={{ whiteSpace: "pre-line" }}>
-									{qIndex + 1}. {q.question}
+								<h2
+									className="font-semibold text-gray-800 mb-4"
+									style={{ whiteSpace: "pre-line" }}
+								>
+									{qIndex + 1}. {q.question.replace(/\\n/g, "\n")}
 								</h2>
+
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4.5">
 									{q.options.map((option, oIndex) => (
 										<label
@@ -196,7 +201,7 @@ const McqQuiz = () => {
 											className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-all ${answers[qIndex] === option
 												? "border-blue-500 bg-blue-50"
 												: "border-gray-300 hover:border-blue-400"
-											}`}
+												}`}
 										>
 											<input
 												type="radio"

@@ -6,20 +6,26 @@ import * as XLSX from 'xlsx';
 function Report() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
+    const event = sessionStorage.getItem('event');
     const { loading, error, data, fetchData } = useFetch();
 
-    const getStudentReport = async () => { await fetchData(`${apiUrl}/report/student`) }
+    const getStudentReport = async () => { await fetchData(`${apiUrl}/report/student`, { event }) }
 
     const handleDownload = () => {
+
         const headers = [
-            'S No', 'User ID', 'Member Name 1', 'Member Name 2',
+            'S No', 'Team ID', 'Participants', 'Participant Count',
             'Contact No', 'Department', 'College', 'Scores', 'Updated At'
         ];
 
         const sheetData = [
-            headers, ...data.map((user, index) => [
-                index + 1, user.userId, user.memberName1 || '', user.memberName2 || '',
-                user.contactNo || '', user.deptName, user.clgName, user.scores,
+            headers,
+            ...data.data.map((user, index) => [
+                index + 1, user.teamId,
+                user.participants?.join(", ") || "",
+                user.participants?.length || 0,
+                user.contactNo || "", user.deptName,
+                user.clgName, user.scores,
                 new Date(user.updatedAt).toLocaleString()
             ])
         ]
@@ -32,6 +38,8 @@ function Report() {
         });
         saveAs(blob, 'Scores Report.xlsx');
     }
+
+    // console.log(data)
 
     return (
         <div className='p-6 w-full space-y-6'>
@@ -60,7 +68,7 @@ function Report() {
             )}
 
             {/* Table */}
-            {!loading && !error && data?.length > 0 && (
+            {!loading && !error && data?.data?.length > 0 && (
                 <div className="overflow-x-auto flex flex-col">
                     <button
                         onClick={handleDownload}
@@ -70,28 +78,31 @@ function Report() {
                     </button>
                     <div className="overflow-x-auto">
                         <table className="text-center w-full bg-white rounded shadow-md border border-gray-300 border-collapse">
-                            <thead className="bg-gradient-to-br from-green-700 via-green-600 to-green-600 text-white overflow-auto">
+                            <thead className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 text-white overflow-auto">
                                 <tr>
                                     {[
-                                        "S No", "User ID", "Member Name 1", "Member Name 2",
+                                        "S No", "Team Id", "Participants",
                                         "Scores", "Updated At", "Department", "College",
                                     ].map((header, idx) => (
-                                        <th key={idx} className="px-4 h-12 py-2 border border-gray-300 whitespace-nowrap uppercase">
+                                        <th key={idx} className="px-4 h-14 py-2 border border-gray-300 font-semibold whitespace-nowrap">
                                             {header}
                                         </th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody>
-                                {data.map((user, index) => (
+                                {data.data.map((user, index) => (
                                     <tr
                                         key={index}
                                         className={`h-12 transition-colors uppercase duration-200 hover:bg-blue-50 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                                     >
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
-                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.userId}</td>
-                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.memberName1}</td>
-                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.memberName2}</td>
+                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
+                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
+                                            {user.participants.map((participant, i) => (
+                                                <div key={i}>{participant}</div>
+                                            ))}
+                                        </td>
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.scores}</td>
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{new Date(user.updatedAt).toLocaleString()}</td>
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.deptName}</td>
