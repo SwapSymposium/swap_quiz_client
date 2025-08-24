@@ -66,7 +66,7 @@ function Participants() {
             </div>
             {isAddModalOpen && (
                 <div className="flex justify-center">
-                    <div className="bg-white p-6 rounded-lg shadow-xl w-full mt-1 mb-4">
+                    <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-xl mt-1 mb-4">
                         <h2 className="text-xl font-semibold text-blue-700 text-center border-b pb-3 mb-6">Add New User</h2>
                         {addError && <span className='text-red-600 mb-6 block'>{addError}</span>}
                         <div className="grid grid-cols-1 gap-6">
