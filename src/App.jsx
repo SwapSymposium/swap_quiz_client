@@ -10,6 +10,7 @@ import Participants from './pages/Participants';
 import FileUpload from './pages/FileUpload';
 import ImageUpload from './pages/ImageUpload';
 import ProtectedRoute from './auth/ProtectedRoutes';
+import UserManage from './pages/UserManage';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
 					<Route path="participantsList" element={<Participants />} />
 					<Route path="fileUpload" element={<FileUpload />} />
 					<Route path="imageUpload" element={<ImageUpload />} />
+					<Route path="usermanage" element={<UserManage />} />
 				</Route>
 			</Routes>
 		</Router>

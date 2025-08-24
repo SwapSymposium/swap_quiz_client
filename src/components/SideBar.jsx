@@ -13,6 +13,7 @@ function SideBar({ onClose }) {
 
     const navItems = [
         { name: 'Participants List', path: `/layout/${roleType}/${eventName}/${teamId}/participantsList`, icon: faUserGroup, show: roleType === 'ADMIN' },
+        { name: 'User Manage', path: `/layout/${roleType}/${eventName}/${teamId}/usermanage`, icon: faUserGroup, show: roleType === 'SUPERADMIN' },
         { name: 'File Upload', path: `/layout/${roleType}/${eventName}/${teamId}/fileUpload`, icon: faFileUpload, show: roleType === 'ADMIN' },
         { name: 'Image Upload', path: `/layout/${roleType}/${eventName}/${teamId}/imageUpload`, icon: faFileImage, show: roleType === 'ADMIN' },
         { name: 'Guidelines', path: `/layout/${roleType}/${eventName}/${teamId}/guidelines`, icon: faClipboardList, show: roleType === 'PARTICIPANTS' },

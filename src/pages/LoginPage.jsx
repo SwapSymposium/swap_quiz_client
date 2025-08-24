@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import JmcLogo from "../assets/JmcLogo.jpg";
 import Jmc75 from "../assets/Jmc75.png";
 import Swap from "../assets/SwapWM.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faUser, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLock, faUser, faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../hooks/useAuth";
 
 function LoginForm() {
 
@@ -16,7 +16,7 @@ function LoginForm() {
     const apiUrl = import.meta.env.VITE_API_URL;
     const [teamId, setTeamId] = useState("");
     const [password, setPassword] = useState("");
-    const { loginUser, error, setError } = useAuth()
+    const {loginUser, error, setError} = useAuth()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,6 +32,7 @@ function LoginForm() {
                     navigate(`/layout/${roleType}/${eventName}/${teamId}/participantsList`);
                 }
                 else if (roleType === 'SUPERADMIN') {
+                    navigate(`/layout/${roleType}/${eventName}/${teamId}/usermanage`);
 
                 }
                 else {
@@ -41,7 +42,7 @@ function LoginForm() {
         }
     }
 
-    useEffect(() => { usernameRef.current?.focus() }, []);
+    useEffect(() => {usernameRef.current?.focus()}, []);
 
     return (
         <div className="min-h-screen flex font-sans">
