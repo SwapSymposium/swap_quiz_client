@@ -1,13 +1,13 @@
-import React, { useState, useMemo, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useAdd } from "../hooks/useAdd";
-import { useFetch } from "../hooks/useFetch";
+import React, {useState, useMemo, useRef, useEffect} from "react";
+import {useParams} from "react-router-dom";
+import {useAdd} from "../hooks/useAdd";
+import {useFetch} from "../hooks/useFetch";
 
 const McqQuiz = () => {
 
 	const apiUrl = import.meta.env.VITE_API_URL;
 	const event = sessionStorage.getItem('event');
-	const { teamId } = useParams();
+	const {teamId} = useParams();
 	const [timeLeft, setTimeLeft] = useState(60 * 60);
 	const [timerStarted, setTimerStarted] = useState(false);
 	const [questions, setQuestions] = useState([]);
@@ -15,20 +15,20 @@ const McqQuiz = () => {
 	useEffect(() => {
 		const fetchQuizQuestions = async () => {
 			try {
-				const response = await fetchData(`${apiUrl}/participants/quizQustns`, { event });
+				const response = await fetchData(`${apiUrl}/participants/quizQustns`, {event});
 				setQuestions(response.data.data);
-			} catch (error) { console.error("Error fetching quiz questions : ", error) }
+			} catch (error) {console.error("Error fetching quiz questions : ", error)}
 		}
 		fetchQuizQuestions();
 	}, [event]);
 
-	const { addData } = useAdd();
-	const { fetchData } = useFetch();
+	const {addData} = useAdd();
+	const {fetchData} = useFetch();
 
 	const [currentUnanswered, setCurrentUnanswered] = useState(null);
 	const [answers, setAnswers] = useState(() => {
 		const initial = {};
-		questions.forEach((_, idx) => { initial[idx] = null });
+		questions.forEach((_, idx) => {initial[idx] = null});
 		return initial;
 	});
 	const answersRef = useRef(answers);
@@ -50,15 +50,15 @@ const McqQuiz = () => {
 
 	useEffect(() => {
 		const checkAlreadyAttended = async () => {
-			const response = await fetchData(`${apiUrl}/participants/alreadyAttended`, { teamId });
+			const response = await fetchData(`${apiUrl}/participants/alreadyAttended`, {teamId});
 			// console.log(response)
-			if (response?.data?.attended) { setAlreadyAttendedFlag(true) }
+			if (response?.data?.attended) {setAlreadyAttendedFlag(true)}
 		}
 		checkAlreadyAttended();
 	}, [apiUrl, teamId]);
 
 	const handleSelect = (qIndex, option) => {
-		setAnswers((prev) => ({ ...prev, [qIndex]: option }));
+		setAnswers((prev) => ({...prev, [qIndex]: option}));
 		if (qIndex === currentUnanswered) {
 			setCurrentUnanswered(null);
 		}
@@ -73,15 +73,15 @@ const McqQuiz = () => {
 	// console.log(scores)
 
 	const handleStart = async () => {
-		const response = await fetchData(`${apiUrl}/participants/startRights`, { event });
+		const response = await fetchData(`${apiUrl}/participants/startRights`, {event});
 		if (response && response.status === 200) {
 			setStarted(false);
 			setTimerStarted(true);
 			const timer = setInterval(() => {
 				setTimeLeft(prev => {
 					if (prev <= 1) {
-						clearInterval(timer); const allAnswers = { ...answersRef.current };
-						questions.forEach((_, idx) => { if (allAnswers[idx] === null) { allAnswers[idx] = "Not Answered" } });
+						clearInterval(timer); const allAnswers = {...answersRef.current};
+						questions.forEach((_, idx) => {if (allAnswers[idx] === null) {allAnswers[idx] = "Not Answered"} });
 						const finalScore = Object.keys(allAnswers).reduce((total, key) => total + (allAnswers[key] === questions[key].answer ? 1 : 0), 0)
 						addData(`${apiUrl}/participants/quizSave`, {
 							teamId, scores: finalScore, answers: allAnswers
@@ -93,7 +93,7 @@ const McqQuiz = () => {
 					} return prev - 1;
 				})
 			}, 1000)
-		} else { setMessage("Test has not been started yet.") }
+		} else {setMessage("Test has not been started yet.")}
 	}
 
 	const handleSubmit = async () => {
@@ -106,9 +106,9 @@ const McqQuiz = () => {
 			return
 		}
 		// console.log(answers)
-		const response = await addData(`${apiUrl}/participants/quizSave`, { teamId, scores, answers, event })
-		if (response?.status === 200) { setAlreadyAttendedFlag(true) }
-		else { setMessage("Error saving quiz. Please try again.") }
+		const response = await addData(`${apiUrl}/participants/quizSave`, {teamId, scores, answers, event})
+		if (response?.status === 200) {setAlreadyAttendedFlag(true)}
+		else {setMessage("Error saving quiz. Please try again.")}
 	}
 
 	if (alreadyAttendedFlag) {
@@ -189,7 +189,7 @@ const McqQuiz = () => {
 							>
 								<h2
 									className="font-semibold text-gray-800 mb-4"
-									style={{ whiteSpace: "pre-line" }}
+									style={{whiteSpace: "pre-line"}}
 								>
 									{qIndex + 1}. {q.question.replace(/\\n/g, "\n")}
 								</h2>
@@ -215,8 +215,10 @@ const McqQuiz = () => {
 												<span className="text-gray-700">{option}</span>
 											) : (
 												<img
-													src={option}
-													alt={`Option ${oIndex + 1}`}
+													src={`http://localhost:5000/uploads/${option}`}
+													alt={`${apiUrl}/uploads/${option}`}
+
+
 													className="w-full h-96 object-contain rounded-lg border"
 												/>
 											)}
