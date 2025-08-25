@@ -217,8 +217,6 @@ const McqQuiz = () => {
 												<img
 													src={`http://localhost:5000/uploads/${option}`}
 													alt={`${apiUrl}/uploads/${option}`}
-
-
 													className="w-full h-96 object-contain rounded-lg border"
 												/>
 											)}
