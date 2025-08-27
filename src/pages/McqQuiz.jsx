@@ -206,7 +206,6 @@ const McqQuiz = () => {
 								>
 									{qIndex + 1}. {q.question.replace(/\\n/g, "\n")}
 								</h2>
-
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4.5">
 									{q.options.map((option, oIndex) => (
 										<label

@@ -28,7 +28,14 @@ function SideBar({ onClose }) {
         <NavLink
             key={item.path}
             to={item.path}
-            onClick={onClose}
+            onClick={() => {
+                if (item.name === 'Logout') {
+                    sessionStorage.removeItem('authToken');
+                    sessionStorage.removeItem('role');
+                    sessionStorage.removeItem('event');
+                }
+                onClose();
+            }}
             className={({ isActive }) =>
                 `group flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-300
                 ${isActive ? 'bg-blue-500 shadow-lg' : 'hover:bg-blue-500 hover:scale-103'}`

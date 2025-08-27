@@ -19,9 +19,11 @@ function Topbar({ onClick }) {
     let currentMenu = 'Menu';
 
     menuRoutes.forEach((route) => {
-        const pathRegex = new RegExp( '^' + route.path.replace(/:[^\s/]+/g, '[\\w-]+') + '$' )
+        const pathRegex = new RegExp('^' + route.path.replace(/:[^\s/]+/g, '[\\w-]+') + '$')
         if (pathRegex.test(location.pathname)) { currentMenu = route.name }
     })
+
+    const handleLogout = () => { sessionStorage.clear(); navigate("/", { replace: true })}
 
     return (
         <div className='py-2 px-3 flex items-center justify-between bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500'>
@@ -29,7 +31,7 @@ function Topbar({ onClick }) {
                 <Menu color='white' size={24} />
             </button>
             <label className='text-white font-semibold text-lg'>{currentMenu}</label>
-            <button onClick={() => navigate('/')} className='p-1.5 rounded hover:bg-white/20 transition'>
+            <button onClick={handleLogout} className='p-1.5 rounded hover:bg-white/20 transition'>
                 <LogOut color='white' size={22} />
             </button>
         </div>
