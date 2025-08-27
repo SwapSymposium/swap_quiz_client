@@ -22,7 +22,16 @@ const ProtectedRoute = ({ children }) => {
         verifyToken()
     }, [])
 
-    if (isValid === null) { return <div>Loading...</div> }
+    if (isValid === null) {
+        return (
+            <div className="fixed top-0 left-0 w-full h-full backdrop-blur-sm bg-black/20 flex justify-center items-center z-50">
+                <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h2 className="text-lg font-semibold">Uploading...</h2>
+                    <div className="mt-2 animate-spin border-4 border-blue-400 border-t-transparent rounded-full h-10 w-10 mx-auto"></div>
+                </div>
+            </div>
+        )
+    }
 
     return isValid ? children : <Navigate to="/" replace />;
 }
