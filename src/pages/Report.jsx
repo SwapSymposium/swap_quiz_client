@@ -14,18 +14,17 @@ function Report() {
     const handleDownload = () => {
 
         const headers = [
-            'S No', 'Team ID', 'Participants', 'Participant Count',
-            'Contact No', 'Department', 'College', 'Scores', 'Updated At'
+            'S No', 'Swap ID', 'Team ID', 'Participants', 'Scores',
+            'Contact No', 'Department', 'College', 'Updated At'
         ];
 
         const sheetData = [
             headers,
             ...data.data.map((user, index) => [
-                index + 1, user.teamId,
+                index + 1, user.swapId, user.teamId,
                 user.participants?.join(", ") || "",
-                user.participants?.length || 0,
-                user.contactNo || "", user.deptName,
-                user.clgName, user.scores,
+                user.scores, user.contactNo || "", 
+                user.deptName, user.clgName, 
                 new Date(user.updatedAt).toLocaleString()
             ])
         ]
@@ -81,7 +80,7 @@ function Report() {
                             <thead className="bg-gradient-to-br from-blue-600 via-blue-500 to-blue-600 text-white overflow-auto">
                                 <tr>
                                     {[
-                                        "S No", "Team Id", "Participants",
+                                        "S No", "Swap Id", "Team Id", "Participants",
                                         "Scores", "Updated At", "Department", "College",
                                     ].map((header, idx) => (
                                         <th key={idx} className="px-4 h-14 py-2 border border-gray-300 font-semibold whitespace-nowrap">
@@ -97,6 +96,7 @@ function Report() {
                                         className={`h-12 transition-colors uppercase duration-200 hover:bg-blue-50 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
                                     >
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
+                                        <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.swapId}</td>
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
                                         <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
                                             {user.participants.map((participant, i) => (

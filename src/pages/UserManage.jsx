@@ -123,7 +123,8 @@ function UserManage() {
                             <thead className="bg-blue-500 text-white overflow-auto">
                                 <tr className="h-12">
                                     <th className="px-4 py-2 border border-gray-300">S. No.</th>
-                                    <th className="px-4 py-2 border border-gray-300">User ID</th>
+                                    <th className="px-4 py-2 border border-gray-300">Event ID</th>
+                                    <th className="px-4 py-2 border border-gray-300">Password</th>
                                     <th className="px-4 py-2 border border-gray-300">Event Name</th>
                                     <th className="px-4 py-2 border border-gray-300">Contact No</th>
                                 </tr>
@@ -134,6 +135,7 @@ function UserManage() {
                                         <tr className="border h-12" key={index}>
                                             <td className="px-4 py-2 border border-gray-200">{index + 1}</td>
                                             <td className="px-4 py-2 border border-gray-200">{item.teamId}</td>
+                                            <td className="px-4 py-2 border border-gray-200">{item.password}</td>
                                             <td className="px-4 py-2 border border-gray-200">{item.event}</td>
                                             <td className="px-4 py-2 border border-gray-200">{item.contactNo}</td>
                                         </tr>

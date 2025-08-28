@@ -9,7 +9,7 @@ function Participants() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         teamId: '', password: 'JMC', participants: [''],
-        contactNo: '', deptName: '', clgName: ''
+        contactNo: '', deptName: '', clgName: '', swapId: ''
     });
     const apiUrl = import.meta.env.VITE_API_URL;
     const event = sessionStorage.getItem('event');
@@ -70,6 +70,15 @@ function Participants() {
                         <h2 className="text-xl font-semibold text-blue-700 text-center border-b pb-3 mb-6">Add New User</h2>
                         {addError && <span className='text-red-600 mb-6 block'>{addError}</span>}
                         <div className="grid grid-cols-1 gap-6">
+                            <input
+                                autoComplete='off'
+                                type="text"
+                                value={formData.swapId}
+                                name='swapId'
+                                placeholder="Swap Id"
+                                onChange={handleChange}
+                                className="p-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            />
                             <input
                                 autoComplete='off'
                                 type="text"
@@ -165,6 +174,7 @@ function Participants() {
                                 <thead className="bg-blue-500 text-white overflow-auto">
                                     <tr className='h-12'>
                                         <th className="px-4 py-2 border border-gray-300">S. No.</th>
+                                        <th className="px-4 py-2 border border-gray-300">Swap Id</th>
                                         <th className="px-4 py-2 border border-gray-300">Team Id</th>
                                         <th className="px-4 py-2 border border-gray-300">Participants</th>
                                         <th className="px-4 py-2 border border-gray-300">Contact No</th>
@@ -178,6 +188,7 @@ function Participants() {
                                             <tr key={user.teamId} className="border h-12">
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.swapId}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
                                                     {user.participants.map((participant, i) => (
                                                         <div key={i}>{participant}</div>
