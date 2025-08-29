@@ -15,7 +15,7 @@ const McqQuiz = () => {
 	useEffect(() => {
 		const fetchQuizQuestions = async () => {
 			try {
-				const response = await fetchData(`${apiUrl}/participants/quizQustns`, { event });
+				const response = await fetchData(`${apiUrl}/api/participants/quizQustns`, { event });
 				let fetchedQuestions = response.data.data;
 				const shuffleArray = (array) => {
 					let arr = [...array];
@@ -43,7 +43,7 @@ const McqQuiz = () => {
 	useEffect(() => {
 		const fetchTime = async () => {
 			try {
-				const response = await fetchData(`${apiUrl}/participants/fetchTime`, { event });
+				const response = await fetchData(`${apiUrl}/api/participants/fetchTime`, { event });
 				const timeLimit = response.data.timeLimit;
 				setTimeLeft(Number(timeLimit) > 0 ? Number(timeLimit) * 60 : 0);
 			} catch (error) {
@@ -81,7 +81,7 @@ const McqQuiz = () => {
 
 	useEffect(() => {
 		const checkAlreadyAttended = async () => {
-			const response = await fetchData(`${apiUrl}/participants/alreadyAttended`, { teamId });
+			const response = await fetchData(`${apiUrl}/api/participants/alreadyAttended`, { teamId });
 			// console.log(response)
 			if (response?.data?.attended) { setAlreadyAttendedFlag(true) }
 		}
@@ -104,7 +104,7 @@ const McqQuiz = () => {
 	// console.log(scores)
 
 	const handleStart = async () => {
-		const response = await fetchData(`${apiUrl}/participants/startRights`, { event });
+		const response = await fetchData(`${apiUrl}/api/participants/startRights`, { event });
 		if (response && response.status === 200) {
 			setStarted(false);
 			setTimerStarted(true);
@@ -114,7 +114,7 @@ const McqQuiz = () => {
 						clearInterval(timer); const allAnswers = { ...answersRef.current };
 						questions.forEach((_, idx) => { if (allAnswers[idx] === null) { allAnswers[idx] = "Not Answered" } });
 						const finalScore = Object.keys(allAnswers).reduce((total, key) => total + (allAnswers[key] === questions[key].answer ? questions[key].mark : 0), 0)
-						addData(`${apiUrl}/participants/quizSave`, {
+						addData(`${apiUrl}/api/participants/quizSave`, {
 							teamId, scores: finalScore, answers: allAnswers, event
 						}).then((res) => {
 							if (res?.status === 200) setAlreadyAttendedFlag(true);
@@ -137,7 +137,7 @@ const McqQuiz = () => {
 			return
 		}
 		// console.log(answers)
-		const response = await addData(`${apiUrl}/participants/quizSave`, { teamId, scores, answers, event })
+		const response = await addData(`${apiUrl}/api/participants/quizSave`, { teamId, scores, answers, event })
 		if (response?.status === 200) { setAlreadyAttendedFlag(true) }
 		else { setMessage("Error saving quiz. Please try again.") }
 	}
@@ -246,7 +246,7 @@ const McqQuiz = () => {
 											) : (
 												<img
 													src={`http://localhost:5003/uploads/${option}`}
-													alt={`${apiUrl}/uploads/${option}`}
+													alt={`${apiUrl}/api/uploads/${option}`}
 													className="w-full h-96 object-contain rounded-lg border"
 												/>
 											)}

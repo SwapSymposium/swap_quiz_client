@@ -14,7 +14,7 @@ function Settings() {
     useEffect(() => {
         const fetchTestAccess = async () => {
             try {
-                const response = await fetchData(`${apiUrl}/admin/testAccessFetch`, { event });
+                const response = await fetchData(`${apiUrl}/api/admin/testAccessFetch`, { event });
                 // console.log(response)
                 if (response) {
                     setAllowTest(response.data.allowTest)
@@ -26,7 +26,7 @@ function Settings() {
     }, []);
 
     const handleTestAccess = async () => {
-        const response = await editData(`${apiUrl}/admin/testAccessSave`, { allowTest, event, time })
+        const response = await editData(`${apiUrl}/api/admin/testAccessSave`, { allowTest, event, time })
         if (response.status === 200) { alert('Settings saved succesfully') }
     }
 

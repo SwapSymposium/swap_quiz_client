@@ -12,7 +12,7 @@ function GuideLines() {
     useEffect(() => {
         const fetchRules = async () => {
             try {
-                const response = await fetchData(`${apiUrl}/participants/rules`, { event })
+                const response = await fetchData(`${apiUrl}/api/participants/rules`, { event })
                 setRules(response.data);
             } catch (error) { console.error("Error fetching rules: ", error) }
         };

@@ -23,7 +23,7 @@ function FileUpload() {
 		const formData = new FormData();
 		formData.append("file", rules);
 		try {
-			const res = await axios.post(`${apiUrl}/rules/uploadrules`, formData, {
+			const res = await axios.post(`${apiUrl}/api/rules/uploadrules`, formData, {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 			alert("Rules Uploaded Successfully!");
@@ -40,7 +40,7 @@ function FileUpload() {
 		const formData = new FormData();
 		formData.append("file", questionsFile);
 		try {
-			const res = await axios.post(`${apiUrl}/questions/uploadquestion`, formData, {
+			const res = await axios.post(`${apiUrl}/api/questions/uploadquestion`, formData, {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 			alert("Questions Uploaded Successfully!");
@@ -57,7 +57,7 @@ function FileUpload() {
 		const formData = new FormData();
 		formData.append("file", userFile);
 		try {
-			const res = await axios.post(`${apiUrl}/users/uploadusers`, formData, {
+			const res = await axios.post(`${apiUrl}/api/users/uploadusers`, formData, {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
 			alert("User Uploaded Successfully!")

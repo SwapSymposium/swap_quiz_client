@@ -24,7 +24,7 @@ function LoginForm() {
             setError("Username and Password must be filled.");
             return;
         } else {
-            const data = await loginUser(`${apiUrl}/user/login`, teamId, password);
+            const data = await loginUser(`${apiUrl}/api/user/login`, teamId, password);
             if (data?.data?.user?.role && data?.data?.user?.event) {
                 const roleType = sessionStorage.getItem('role');
                 const eventName = sessionStorage.getItem('event');

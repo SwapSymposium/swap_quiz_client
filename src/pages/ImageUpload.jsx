@@ -15,7 +15,7 @@ function ImageUpload() {
     useEffect(() => {
         const fetchQuestion = async () => {
             try {
-                const responseData = await fetchData(`${apiUrl}/admin/imageQuestion`, { eventName });
+                const responseData = await fetchData(`${apiUrl}/api/admin/imageQuestion`, { eventName });
                 const questionsArray = responseData.data.data;
                 setImageQuestions(
                     questionsArray.map((q, index) => ({
@@ -57,7 +57,7 @@ function ImageUpload() {
         question.options.forEach((file) => formData.append("options", file));
         try {
             setLoading(true);
-            const res = await axios.post(`${apiUrl}/admin/imageUpload`, formData, {
+            const res = await axios.post(`${apiUrl}/api/admin/imageUpload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             alert(`Q${question.questionNo} uploaded successfully`);

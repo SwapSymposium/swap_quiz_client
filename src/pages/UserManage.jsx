@@ -20,7 +20,7 @@ function UserManage() {
 
     const fetchEvents = async () => {
         try {
-            const response = await fetchData(`${apiUrl}/admin/getEvents`, {});
+            const response = await fetchData(`${apiUrl}/api/admin/getEvents`, {});
             if (response?.data?.events) { setEventsData(response.data.events) }
         } catch (err) { console.log("Error fetching events", err) }
     }
@@ -29,7 +29,7 @@ function UserManage() {
 
     const addEvent = async () => {
         try {
-            const response = await axios.post(`${apiUrl}/admin/addEvents`, formData);
+            const response = await axios.post(`${apiUrl}/api/admin/addEvents`, formData);
             if (response.data.success) {
                 alert("Event Added Successfully");
                 setIsModalOpen(false);

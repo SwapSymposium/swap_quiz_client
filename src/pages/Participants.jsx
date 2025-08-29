@@ -16,7 +16,7 @@ function Participants() {
 
     useEffect(() => {
         const getData = async () => {
-            await fetchData(`${apiUrl}/participants/fetchParticipants`, { event });
+            await fetchData(`${apiUrl}/api/participants/fetchParticipants`, { event });
         }
         getData()
     }, [event])
@@ -31,11 +31,11 @@ function Participants() {
 
     const handleSubmit = async () => {
         const payload = { ...formData, role: "PARTICIPANTS", event }
-        const data = await addData(`${apiUrl}/participants/addUser`, payload);
+        const data = await addData(`${apiUrl}/api/participants/addUser`, payload);
         if (data) {
             alert('User added successfully');
             setIsAddModalOpen(false);
-            fetchData(`${apiUrl}/participants/fetchParticipants`, { event });
+            fetchData(`${apiUrl}/api/participants/fetchParticipants`, { event });
         }
     }
 

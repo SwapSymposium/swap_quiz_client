@@ -9,7 +9,7 @@ function Report() {
     const event = sessionStorage.getItem('event');
     const { loading, error, data, fetchData } = useFetch();
 
-    const getStudentReport = async () => { await fetchData(`${apiUrl}/report/student`, { event }) }
+    const getStudentReport = async () => { await fetchData(`${apiUrl}/api/report/student`, { event }) }
 
     const handleDownload = () => {
 

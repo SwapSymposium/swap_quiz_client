@@ -9,7 +9,7 @@ export const verifyTokenAPI = async (apiUrl, teamId) => {
     const token = sessionStorage.getItem('authToken')
     if (!token) return;
     try {
-        const response = await axios.post(`${apiUrl}/user/verifyToken`, { teamId }, {
+        const response = await axios.post(`${apiUrl}/api/user/verifyToken`, { teamId }, {
             headers: { Authorization: `Bearer ${token}` }
         })
         // console.log(response)
