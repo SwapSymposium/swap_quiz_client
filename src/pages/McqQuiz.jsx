@@ -245,7 +245,7 @@ const McqQuiz = () => {
 												<span className="text-gray-700">{option}</span>
 											) : (
 												<img
-													src={`http://localhost:5003/uploads/${option}`}
+													src={`${apiUrl}/uploads/${option}`}
 													alt={`${apiUrl}/api/uploads/${option}`}
 													className="w-full h-96 object-contain rounded-lg border"
 												/>

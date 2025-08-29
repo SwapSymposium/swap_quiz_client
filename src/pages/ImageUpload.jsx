@@ -61,6 +61,8 @@ function ImageUpload() {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             alert(`Q${question.questionNo} uploaded successfully`);
+            window.location.reload();
+        } catch (err) {
             console.error("Upload failed : ", err);
             alert("Upload Failed");
         } finally { setLoading(false) }

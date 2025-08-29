@@ -187,8 +187,8 @@ function Participants() {
                                         (data.data).map((user, index) => (
                                             <tr key={user.teamId} className="border h-12">
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
-                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.swapId}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
                                                     {user.participants.map((participant, i) => (
                                                         <div key={i}>{participant}</div>
