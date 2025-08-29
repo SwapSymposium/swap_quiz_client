@@ -16,11 +16,29 @@ const McqQuiz = () => {
 		const fetchQuizQuestions = async () => {
 			try {
 				const response = await fetchData(`${apiUrl}/participants/quizQustns`, { event });
-				setQuestions(response.data.data);
+				let fetchedQuestions = response.data.data;
+				const shuffleArray = (array) => {
+					let arr = [...array];
+					for (let i = arr.length - 1; i > 0; i--) {
+						const j = Math.floor(Math.random() * (i + 1));
+						[arr[i], arr[j]] = [arr[j], arr[i]];
+					}
+					return arr;
+				};
+				fetchedQuestions = shuffleArray(fetchedQuestions);
+				fetchedQuestions = fetchedQuestions.map((q) => {
+					if (!q.options || q.options.length === 0) return q;
+					const shuffledOptions = shuffleArray(q.options);
+					return {
+						...q, options: shuffledOptions,
+						answer: shuffledOptions.find((opt) => opt === q.answer)
+					}
+				})
+				setQuestions(fetchedQuestions);
 			} catch (error) { console.error("Error fetching quiz questions : ", error) }
 		}
 		fetchQuizQuestions();
-	}, [event]);
+	}, [event])
 
 	useEffect(() => {
 		const fetchTime = async () => {
@@ -79,11 +97,11 @@ const McqQuiz = () => {
 
 	const scores = useMemo(() => {
 		return Object.keys(answers).reduce(
-			(total, key) => total + (answers[key] === questions[key].answer ? 1 : 0), 0
+			(total, key) => total + (answers[key] === questions[key].answer ? questions[key].mark : 0), 0
 		);
 	}, [answers]);
 
-	// console.log(event)
+	// console.log(scores)
 
 	const handleStart = async () => {
 		const response = await fetchData(`${apiUrl}/participants/startRights`, { event });
@@ -95,7 +113,7 @@ const McqQuiz = () => {
 					if (prev <= 1) {
 						clearInterval(timer); const allAnswers = { ...answersRef.current };
 						questions.forEach((_, idx) => { if (allAnswers[idx] === null) { allAnswers[idx] = "Not Answered" } });
-						const finalScore = Object.keys(allAnswers).reduce((total, key) => total + (allAnswers[key] === questions[key].answer ? 1 : 0), 0)
+						const finalScore = Object.keys(allAnswers).reduce((total, key) => total + (allAnswers[key] === questions[key].answer ? questions[key].mark : 0), 0)
 						addData(`${apiUrl}/participants/quizSave`, {
 							teamId, scores: finalScore, answers: allAnswers, event
 						}).then((res) => {

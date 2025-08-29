@@ -117,7 +117,6 @@ function UserManage() {
                 <div className="overflow-x-auto shadow rounded-lg bg-white p-4">
                     {loading && <div className="text-center py-4 text-blue-600 font-semibold">Loading...</div>}
                     {error && <div className="text-center py-4 text-red-600 font-semibold">Error: {error}</div>}
-
                     {!loading && !error && (
                         <table className="text-center w-full bg-white rounded shadow-md border border-gray-300 border-collapse">
                             <thead className="bg-blue-500 text-white overflow-auto">
@@ -142,7 +141,7 @@ function UserManage() {
                                     ))
                                 ) : (
                                     <tr className="h-12">
-                                        <td colSpan={4} className="py-2 text-gray-500">No users found.</td>
+                                        <td colSpan={5} className="py-2 text-gray-500">No users found.</td>
                                     </tr>
                                 )}
                             </tbody>

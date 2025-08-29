@@ -36,13 +36,6 @@ function GuideLines() {
                             key={rule._id}
                             className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
                         >
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="flex-shrink-0 bg-gray-100 p-3 rounded-full">
-                                    {/* Placeholder icon */}
-                                    <FaCheckCircle className="text-green-500" />
-                                </div>
-                                <h2 className="text-2xl font-semibold text-gray-800">{rule.title}</h2>
-                            </div>
                             <p className="text-gray-700 mb-2">{rule.points}</p>
                             {rule.subpoints && rule.subpoints.length > 0 && (
                                 <ul className="list-disc ml-5 space-y-1 text-gray-700">
