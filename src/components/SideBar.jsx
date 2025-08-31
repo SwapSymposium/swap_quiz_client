@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import { NavLink, useParams } from 'react-router-dom';
 import Login from '../assets/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClipboardList, faGear, faUserGroup, faFileCircleCheck, faRightFromBracket, faFileUpload, faFileImage } from '@fortawesome/free-solid-svg-icons';
+import { faClipboardList, faGear, faUserGroup, faFileCircleCheck, faRightFromBracket, faFileUpload, faFileImage, faDatabase } from '@fortawesome/free-solid-svg-icons';
 
 function SideBar({ onClose }) {
 
@@ -13,7 +13,8 @@ function SideBar({ onClose }) {
 
     const navItems = [
         { name: 'Participants List', path: `/layout/${roleType}/${eventName}/${teamId}/participantsList`, icon: faUserGroup, show: roleType === 'ADMIN' },
-        { name: 'User Manage', path: `/layout/${roleType}/${eventName}/${teamId}/usermanage`, icon: faUserGroup, show: roleType === 'SUPERADMIN' },
+        { name: 'User Manage', path: `/layout/${roleType}/${eventName}/${teamId}/userManage`, icon: faUserGroup, show: roleType === 'SUPERADMIN' },
+        { name: 'Data Deletion', path: `/layout/${roleType}/${eventName}/${teamId}/dataDeletion`, icon: faDatabase, show: roleType === 'SUPERADMIN' },
         { name: 'File Upload', path: `/layout/${roleType}/${eventName}/${teamId}/fileUpload`, icon: faFileUpload, show: roleType === 'ADMIN' },
         { name: 'Image Upload', path: `/layout/${roleType}/${eventName}/${teamId}/imageUpload`, icon: faFileImage, show: roleType === 'ADMIN' },
         { name: 'Guidelines', path: `/layout/${roleType}/${eventName}/${teamId}/guidelines`, icon: faClipboardList, show: roleType === 'PARTICIPANTS' },

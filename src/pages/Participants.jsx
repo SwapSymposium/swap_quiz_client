@@ -176,6 +176,7 @@ function Participants() {
                                         <th className="px-4 py-2 border border-gray-300">S. No.</th>
                                         <th className="px-4 py-2 border border-gray-300">Swap Id</th>
                                         <th className="px-4 py-2 border border-gray-300">Team Id</th>
+                                        <th className="px-4 py-2 border border-gray-300">Password</th>
                                         <th className="px-4 py-2 border border-gray-300">Participants</th>
                                         <th className="px-4 py-2 border border-gray-300">Contact No</th>
                                         <th className="px-4 py-2 border border-gray-300">Department Name</th>
@@ -189,6 +190,7 @@ function Participants() {
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{index + 1}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.swapId}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.teamId}</td>
+                                                <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">{user.password}</td>
                                                 <td className="px-4 py-2 border border-gray-200 text-md whitespace-nowrap">
                                                     {user.participants.map((participant, i) => (
                                                         <div key={i}>{participant}</div>
@@ -201,7 +203,7 @@ function Participants() {
                                         ))
                                     ) : (
                                         <tr className='h-12'>
-                                            <td colSpan={7} className="py-2 text-gray-500">No users found.</td>
+                                            <td colSpan={8} className="py-2 text-gray-500">No users found.</td>
                                         </tr>
                                     )}
                                 </tbody>

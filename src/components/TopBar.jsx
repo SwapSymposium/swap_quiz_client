@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Menu, LogOut } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -17,20 +18,22 @@ function Topbar({ onClick }) {
     const location = useLocation();
     const navigate = useNavigate();
     let currentMenu = 'Menu';
+    const { eventName } = useParams();
+    const role = sessionStorage.getItem('role');
 
     menuRoutes.forEach((route) => {
         const pathRegex = new RegExp('^' + route.path.replace(/:[^\s/]+/g, '[\\w-]+') + '$')
         if (pathRegex.test(location.pathname)) { currentMenu = route.name }
     })
 
-    const handleLogout = () => { sessionStorage.clear(); navigate("/", { replace: true })}
+    const handleLogout = () => { sessionStorage.clear(); navigate("/", { replace: true }) }
 
     return (
         <div className='py-2 px-3 flex items-center justify-between bg-gradient-to-r from-blue-500 via-blue-600 to-blue-500'>
             <button onClick={onClick} className='p-1 rounded hover:bg-white/20 transition'>
                 <Menu color='white' size={24} />
             </button>
-            <label className='text-white font-semibold text-lg'>{currentMenu}</label>
+            <label className='text-white font-semibold text-lg'>{(role === 'SUPERADMIN' || role === 'ADMIN') ? currentMenu : eventName }</label>
             <button onClick={handleLogout} className='p-1.5 rounded hover:bg-white/20 transition'>
                 <LogOut color='white' size={22} />
             </button>

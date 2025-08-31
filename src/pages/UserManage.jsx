@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faSave, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faSave, faClose, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useFetch } from '../hooks/useFetch';
+import EditUser from '../components/EditUser';
+import DeleteUser from '../components/DeleteUser';
 
 function UserManage() {
 
@@ -13,10 +15,12 @@ function UserManage() {
     })
     const { fetchData, loading, error, data } = useFetch();
     const [eventsData, setEventsData] = useState([]);
+    const [isEditPopupOpen, setIsEditModalOpen] = useState(false);
+    const [isDeletePopupOpen, setIsDeleteModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
-    useEffect(() => {
-        fetchEvents();
-    }, []);
+    useEffect(() => { fetchEvents() }, []);
 
     const fetchEvents = async () => {
         try {
@@ -39,6 +43,17 @@ function UserManage() {
         } catch (err) { console.error("Error saving event:", err) }
     }
 
+    const handleEdit = async (item) => {
+        setIsEditModalOpen(true);
+        setSelectedUser(item);
+    }
+
+    const handleDelete = async (teamId, event) => {
+        setIsDeleteModalOpen(true);
+        setSelectedUser(teamId)
+        setSelectedEvent(event);
+    }
+
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <div className="flex justify-end mb-5">
@@ -57,7 +72,6 @@ function UserManage() {
                         <h2 className="text-xl font-semibold text-blue-700 text-center border-b pb-3 mb-6">
                             Add New User
                         </h2>
-
                         <div className="grid grid-cols-1 gap-6">
                             <input
                                 type="text"
@@ -122,10 +136,11 @@ function UserManage() {
                             <thead className="bg-blue-500 text-white overflow-auto">
                                 <tr className="h-12">
                                     <th className="px-4 py-2 border border-gray-300">S. No.</th>
-                                    <th className="px-4 py-2 border border-gray-300">Event ID</th>
+                                    <th className="px-4 py-2 border border-gray-300">Team ID</th>
                                     <th className="px-4 py-2 border border-gray-300">Password</th>
                                     <th className="px-4 py-2 border border-gray-300">Event Name</th>
                                     <th className="px-4 py-2 border border-gray-300">Contact No</th>
+                                    <th className="px-4 py-2 border border-gray-300" colSpan={2}>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,11 +152,26 @@ function UserManage() {
                                             <td className="px-4 py-2 border border-gray-200">{item.password}</td>
                                             <td className="px-4 py-2 border border-gray-200">{item.event}</td>
                                             <td className="px-4 py-2 border border-gray-200">{item.contactNo}</td>
+                                            <td className="border border-gray-300 w-[15%] py-2 px-2">
+                                                <button onClick={() => handleEdit(item)}
+                                                    className="cursor-pointer bg-blue-500 text-white w-full p-2 flex items-center rounded justify-center"
+                                                >
+                                                    <FontAwesomeIcon icon={faEdit} className='mr-2' /><span>Edit</span>
+                                                </button>
+                                            </td>
+                                            <td className="border border-gray-300 w-[15%] py-2 px-2">
+                                                <button
+                                                    onClick={() => handleDelete(item.teamId, item.event)}
+                                                    className="cursor-pointer bg-red-500 text-white w-full p-2 flex items-center rounded justify-center"
+                                                >
+                                                    <FontAwesomeIcon icon={faTrash} className='mr-2' /><span>Delete</span>
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr className="h-12">
-                                        <td colSpan={5} className="py-2 text-gray-500">No users found.</td>
+                                        <td colSpan={7} className="py-2 text-gray-500">No users found.</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -149,6 +179,14 @@ function UserManage() {
                     )}
                 </div>
             )}
+            {isEditPopupOpen && <EditUser
+                onClose={() => { setIsEditModalOpen(false); fetchEvents() }}
+                selectedUser={selectedUser}
+            />}
+            {isDeletePopupOpen && <DeleteUser
+                onClose={() => { setIsDeleteModalOpen(false); fetchEvents() }}
+                selectedUser={selectedUser} selectedEvent={selectedEvent}
+            />}
         </div>
     )
 }

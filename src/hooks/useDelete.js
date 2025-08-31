@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { deleteDataAPI } from "../services/user";
+import { deleteDataAPI } from "../services/api";
 
-export const useDelete = (apiUrl, id) => {
+export const useDelete = () => {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const deleteData = async (apiUrl, id) => {
-
+    const deleteData = async (apiUrl, formData) => {
         setLoading(true); setError(null);
-
         try {
-            await deleteDataAPI(apiUrl, id);
+            await deleteDataAPI(apiUrl, formData);
             setLoading(false); return;
         } catch (error) {
             setError(error.message || 'Error occurred');

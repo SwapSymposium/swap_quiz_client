@@ -33,7 +33,6 @@ function LoginForm() {
                 }
                 else if (roleType === 'SUPERADMIN') {
                     navigate(`/layout/${roleType}/${eventName}/${teamId}/usermanage`);
-
                 }
                 else {
                     navigate(`/layout/${roleType}/${eventName}/${teamId}/guidelines`);
@@ -111,7 +110,7 @@ function LoginForm() {
                     ></div>
                     <div className="relative z-10 p-8 lg:p-10">
                         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">
-                            SWAP STYLIFY
+                            SWAP 2K25
                         </h2>
                         <p className="text-gray-500 text-center mb-6">
                             Please login with your credentials
@@ -134,7 +133,7 @@ function LoginForm() {
                                 className="w-full pl-12 pr-4 py-3 border border-gray-500 rounded-lg outline-none text-gray-700 placeholder-gray-500 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition"
                                 placeholder="USERNAME"
                                 value={teamId}
-                                onChange={(e) => setTeamId(e.target.value.toUpperCase())}
+                                onChange={(e) => setTeamId(e.target.value)}
                                 required
                             />
                         </div>

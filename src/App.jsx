@@ -11,6 +11,7 @@ import FileUpload from './pages/FileUpload';
 import ImageUpload from './pages/ImageUpload';
 import ProtectedRoute from './auth/ProtectedRoutes';
 import UserManage from './pages/UserManage';
+import DataDeletion from './pages/DataDeletion';
 
 function App() {
 
@@ -25,12 +26,13 @@ function App() {
 				>
 					<Route path="guidelines" element={<GuideLines />} />
 					<Route path="quiz" element={<McqQuiz />} />
+					<Route path="dataDeletion" element={<DataDeletion />} />
 					<Route path="settings" element={<Settings />} />
 					<Route path="report" element={<Report />} />
 					<Route path="participantsList" element={<Participants />} />
 					<Route path="fileUpload" element={<FileUpload />} />
 					<Route path="imageUpload" element={<ImageUpload />} />
-					<Route path="usermanage" element={<UserManage />} />
+					<Route path="userManage" element={<UserManage />} />
 				</Route>
 			</Routes>
 		</Router>

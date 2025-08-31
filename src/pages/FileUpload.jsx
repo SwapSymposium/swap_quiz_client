@@ -60,8 +60,8 @@ function FileUpload() {
 			const res = await axios.post(`${apiUrl}/api/users/uploadusers`, formData, {
 				headers: { "Content-Type": "multipart/form-data" },
 			});
-			alert("User Uploaded Successfully!")
-		} catch (err) { alert("User Upload Failed") }
+			alert("Participants Uploaded Successfully!")
+		} catch (err) { alert("Participants Upload Failed") }
 		finally { setLoading(false) }
 	}
 

@@ -159,11 +159,26 @@ const McqQuiz = () => {
 					<p className="text-gray-700 text-lg mb-6 leading-relaxed">
 						Your answers have been submitted. Sit tight — results will be available soon!
 					</p>
-					<blockquote className="italic text-blue-700 border-l-4 border-blue-300 pl-4 py-3 bg-blue-50 rounded-lg shadow-sm mb-6">
-						"Design is not just what it looks like and feels like.<br />
-						Design is how it works." <br />
-						<span className="font-semibold">– Steve Jobs</span>
-					</blockquote>
+					{/* Event Quote */}
+					{
+						(() => {
+							const eventQuotes = {
+								STYLIFY: `"Design is not just what it looks like and feels like. Design is how it works." – Steve Jobs`,
+								BITHIT: "The real game starts at the draft table – are you ready?",
+								DBDETECTIVES: "A well-designed database is like a well-written book — everything is in its right place.",
+								PATCHMASTERS: "Every bug you solve today becomes the wisdom you carry tomorrow."
+							}
+							const defaultQuote = "Get ready to test your skills and have fun in the quiz!";
+							const quote = eventQuotes[event] || defaultQuote;
+							return (
+								<blockquote className="italic text-blue-700 border-l-4 text-md border-blue-300 pl-4 py-3 bg-blue-50 rounded-lg shadow-sm mb-6">
+									{quote.split("\n").map((line, idx) => (
+										<span key={idx}> {line} <br /> </span>
+									))}
+								</blockquote>
+							)
+						})()
+					}
 					<button
 						onClick={() => (window.location.href = "/")}
 						className="mt-4 px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transition-all"
@@ -180,7 +195,7 @@ const McqQuiz = () => {
 			<div className="bg-white shadow-2xl rounded-xl p-8 w-full relative">
 				<div className={`mb-6 ${!started ? "flex items-center justify-between" : "text-center"}`}>
 					<h1 className="text-2xl font-bold text-gray-800">
-						{event} Web Design Quiz
+						{event} Mcq Quiz
 					</h1>
 					{!started && (
 						<div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2">

@@ -35,6 +35,6 @@ export const EditDataAPI = async (apiUrl, formData) => {
     return response;
 }
 
-export const deleteDataAPI = async (apiUrl, id) => {
-    await axios.delete(`${apiUrl}`, { data: { id } }); return;
+export const deleteDataAPI = async (apiUrl, formData) => {
+    await axios.delete(`${apiUrl}`, { data: formData }); return;
 }
