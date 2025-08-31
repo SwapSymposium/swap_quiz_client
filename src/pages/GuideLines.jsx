@@ -34,7 +34,7 @@ function GuideLines() {
                 {participants && participants.length > 0 && (
                     <div className="bg-white shadow-md rounded-xl p-4 border  border-gray-100 flex flex-wrap justify-end items-center gap-2">
                         <span className="uppercase py-1 rounded-full text-md font-medium">Username :</span>
-                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-md font-medium">
+                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-lg text-md font-medium">
                             {participants.join(', ')}
                         </span>
                     </div>
@@ -42,7 +42,7 @@ function GuideLines() {
 
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <h1 className="text-4xl font-extrabold text-gray-800">Competition Guidelines</h1>
+                    <h1 className="text-3xl font-extrabold text-gray-800 uppercase">{event} Event Guidelines</h1>
                     <p className="text-gray-600 mt-3">Please read the rules carefully before participating.</p>
                 </div>
 
@@ -51,7 +51,7 @@ function GuideLines() {
                     {rules.map((rule) => (
                         <div
                             key={rule._id}
-                            className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
+                            className="bg-white text-lg shadow-md rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 border border-gray-100"
                         >
                             <p className="text-gray-700 mb-2">{rule.points}</p>
                             {rule.subpoints && rule.subpoints.length > 0 && (

@@ -160,8 +160,7 @@ const McqQuiz = () => {
 						Your answers have been submitted. Sit tight — results will be available soon!
 					</p>
 					{/* Event Quote */}
-					{
-						(() => {
+					{(() => {
 							const eventQuotes = {
 								STYLIFY: `"Design is not just what it looks like and feels like. Design is how it works." – Steve Jobs`,
 								BITHIT: "The real game starts at the draft table – are you ready?",
@@ -177,8 +176,7 @@ const McqQuiz = () => {
 									))}
 								</blockquote>
 							)
-						})()
-					}
+						})()}
 					<button
 						onClick={() => (window.location.href = "/")}
 						className="mt-4 px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transition-all"
