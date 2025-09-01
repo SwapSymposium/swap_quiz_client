@@ -161,22 +161,22 @@ const McqQuiz = () => {
 					</p>
 					{/* Event Quote */}
 					{(() => {
-							const eventQuotes = {
-								STYLIFY: `"Design is not just what it looks like and feels like. Design is how it works." – Steve Jobs`,
-								BITHIT: "The real game starts at the draft table – are you ready?",
-								DBDETECTIVES: "A well-designed database is like a well-written book — everything is in its right place.",
-								PATCHMASTERS: "Every bug you solve today becomes the wisdom you carry tomorrow."
-							}
-							const defaultQuote = "Get ready to test your skills and have fun in the quiz!";
-							const quote = eventQuotes[event] || defaultQuote;
-							return (
-								<blockquote className="italic text-blue-700 border-l-4 text-md border-blue-300 pl-4 py-3 bg-blue-50 rounded-lg shadow-sm mb-6">
-									{quote.split("\n").map((line, idx) => (
-										<span key={idx}> {line} <br /> </span>
-									))}
-								</blockquote>
-							)
-						})()}
+						const eventQuotes = {
+							STYLIFY: `"Design is not just what it looks like and feels like. Design is how it works." – Steve Jobs`,
+							BITHIT: "The real game starts at the draft table – are you ready?",
+							DBDETECTIVES: "A well-designed database is like a well-written book — everything is in its right place.",
+							PATCHMASTERS: "Every bug you solve today becomes the wisdom you carry tomorrow."
+						}
+						const defaultQuote = "Get ready to test your skills and have fun in the quiz!";
+						const quote = eventQuotes[event] || defaultQuote;
+						return (
+							<blockquote className="italic text-blue-700 border-l-4 text-md border-blue-300 pl-4 py-3 bg-blue-50 rounded-lg shadow-sm mb-6">
+								{quote.split("\n").map((line, idx) => (
+									<span key={idx}> {line} <br /> </span>
+								))}
+							</blockquote>
+						)
+					})()}
 					<button
 						onClick={() => (window.location.href = "/")}
 						className="mt-4 px-8 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 hover:scale-105 transition-all"
@@ -229,13 +229,13 @@ const McqQuiz = () => {
 								className={`p-5 border rounded-lg shadow-sm transition-all ${currentUnanswered === qIndex
 									? "border-red-500 bg-red-50"
 									: "border-gray-300 hover:shadow-md"
-									}`}
+								}`}
 							>
 								<h2
 									className="font-semibold text-gray-800 mb-4"
-									style={{ whiteSpace: "pre-line" }}
-								>
-									{qIndex + 1}. {q.question.replace(/\\n/g, "\n")}
+									style={{ whiteSpace: "pre" }}
+									>
+									{qIndex + 1}. {q.question.replace(/\\t/g, "     ").replace(/\\n/g, "\n")}
 								</h2>
 								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4.5">
 									{q.options.map((option, oIndex) => (
@@ -244,7 +244,7 @@ const McqQuiz = () => {
 											className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer transition-all ${answers[qIndex] === option
 												? "border-blue-500 bg-blue-50"
 												: "border-gray-300 hover:border-blue-400"
-												}`}
+											}`}
 										>
 											<input
 												type="radio"
@@ -287,3 +287,4 @@ const McqQuiz = () => {
 }
 
 export default McqQuiz;
+
