@@ -74,10 +74,10 @@ function DataDeletion() {
                             className="p-3 w-70 text-md bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
                         >
                             <option value="">-- Choose Table --</option>
-                            <option value="Participants">Participants</option>
-                            <option value="Rules">Rules</option>
-                            <option value="Answers">Answers</option>
-                            <option value="Questions">Questions</option>
+                            <option value="Participants">PARTICIPANTS</option>
+                            <option value="Rules">RULES</option>
+                            <option value="Answers">ANSWERS</option>
+                            <option value="Questions">QUESTIONS</option>
                         </select>
                     </div>
                 </div>
