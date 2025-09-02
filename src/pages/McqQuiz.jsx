@@ -193,7 +193,7 @@ const McqQuiz = () => {
 			<div className="bg-white shadow-2xl rounded-xl p-8 w-full relative">
 				<div className={`mb-6 ${!started ? "flex items-center justify-between" : "text-center"}`}>
 					<h1 className="text-2xl font-bold text-gray-800">
-						{event} Mcq Quiz
+						{event} PRELIMS
 					</h1>
 					{!started && (
 						<div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2">
