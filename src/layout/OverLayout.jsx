@@ -8,7 +8,7 @@ function OverLayout() {
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
     return (
-        <div className="relative min-h-screen bg-gray-50 overflow-hidden">
+        <div className="relative min-h-screen bg-white overflow-hidden">
             {/* Overlay for Mobile/Interaction */}
             {isSideBarOpen && (
                 <div
