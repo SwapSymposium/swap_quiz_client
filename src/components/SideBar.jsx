@@ -5,7 +5,7 @@ import Login from '../assets/login.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList, faGear, faUserGroup, faFileCircleCheck, faRightFromBracket, faFileUpload, faFileImage, faDatabase } from '@fortawesome/free-solid-svg-icons';
 
-function SideBar({ onClose }) {
+function SideBar({ isOpen, onClose }) {
 
     const { teamId } = useParams();
     const roleType = sessionStorage.getItem('role');
@@ -24,78 +24,66 @@ function SideBar({ onClose }) {
         { name: 'Logout', path: '/', icon: faRightFromBracket, show: true },
     ];
 
-    const renderNavItem = (item) => (
-
-        <NavLink
-            key={item.path}
-            to={item.path}
-            onClick={() => {
-                if (item.name === 'Logout') {
-                    sessionStorage.removeItem('authToken');
-                    sessionStorage.removeItem('role');
-                    sessionStorage.removeItem('event');
-                }
-                onClose();
-            }}
-            className={({ isActive }) =>
-                `group flex items-center gap-3 px-2 py-2 rounded-md transition-all duration-300
-                ${isActive ? 'bg-blue-500 shadow-lg' : 'hover:bg-blue-500 hover:scale-103'}`
-            }
-        >
-            {({ isActive }) => (
-                <>
-                    <div
-                        className={`w-7 h-7 flex items-center justify-center rounded-md transition-all duration-300
-                            ${isActive
-                                ? 'bg-gray-100 text-blue-600 shadow-md'
-                                : 'bg-blue-500 text-white group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-400 group-hover:to-blue-600 group-hover:shadow-lg'
-                            }`}
-                    >
-                        <FontAwesomeIcon
-                            icon={item.icon}
-                            className="transition-transform duration-300 group-hover:scale-105 text-md"
-                        />
-                    </div>
-                    <span
-                        className={`font-semibold transition-colors duration-300 text-white  ${isActive ? '' : 'group-hover:text-white'}`}
-                    >
-                        {item.name}
-                    </span>
-                </>
-            )}
-        </NavLink>
-    )
-
     return (
-        <div
-            className="fixed top-0 left-0 h-full w-72 py-6 px-4 
-                    bg-gradient-to-br from-blue-600 via-blue-700 to-blue-600
-                    bg-opacity-95 backdrop-blur-xl
-                    shadow-2xl border-r border-white/20
-                    z-30 overflow-y-auto transition-transform duration-300"
-        >
-            <button
-                className="absolute top-4 right-4 hover:bg-white/30 p-1 transition"
-                onClick={onClose}
-            >
-                <X className="h-5 w-5 text-white" />
-            </button>
-            <div className="flex flex-col items-center gap-3 mt-12 mb-8">
-                <div className="relative">
-                    <div className="absolute inset-0 rounded-full bg-white/30 blur-lg"></div>
-                    <img
-                        src={Login}
-                        alt="Profile"
-                        className="w-20 h-20 rounded-full shadow-lg border-2 border-white relative z-10"
-                    />
+        <aside className={`fixed top-0 left-0 h-full w-76 bg-white z-50 shadow-2xl transition-transform duration-300 ease-in-out border-r border-blue-100 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}>
+            {/* Header / Close */}
+            <div className="p-6 flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white italic">A</div>
+                    <span className="text-blue-900 font-bold tracking-tight">AdminPanel</span>
                 </div>
-                <span className="text-white font-bold text-md mt-3 uppercase tracking-wide">{teamId}</span>
+                <button onClick={onClose} className="text-blue-400 hover:text-blue-600 transition-colors">
+                    <X size={20} />
+                </button>
             </div>
-            <nav className="flex flex-col gap-2.5">
-                {navItems.filter(item => item.show).map(renderNavItem)}
+
+            {/* Profile Section */}
+            <div className="px-6 mb-8 mt-4">
+                <div className="bg-blue-50 rounded-2xl p-4 flex flex-col items-center border border-blue-100">
+                    <div className="relative">
+                        <img src={Login} alt="Profile" className="w-16 h-16 rounded-full border-2 border-blue-500 p-0.5 object-cover" />
+                        <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+                    </div>
+                    <h3 className="text-blue-900 font-bold mt-3 text-sm tracking-wide uppercase">{teamId}</h3>
+                    <p className="text-blue-600 text-[10px] font-medium tracking-[0.2em] uppercase mt-1">{roleType}</p>
+                </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="px-4 space-y-3 overflow-y-auto max-h-[calc(100vh-250px)] custom-scrollbar">
+                {navItems.filter(item => item.show).map((item) => (
+                    <NavLink
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => {
+                            if (item.name === 'Logout') {
+                                sessionStorage.removeItem('authToken');
+                                sessionStorage.removeItem('role');
+                                sessionStorage.removeItem('event');
+                            }
+                            onClose();
+                        }}
+                        className={({ isActive }) => `
+                            group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200
+                            ${isActive
+                                ? 'bg-blue-600 text-white shadow-lg'
+                                : 'text-blue-700 hover:bg-blue-50 hover:text-blue-800'}
+                        `}
+                    >
+                        <FontAwesomeIcon icon={item.icon} className="text-lg min-w-[20px]" />
+                        <span className="text-sm font-semibold tracking-wide">{item.name}</span>
+                    </NavLink>
+                ))}
             </nav>
-        </div>
-    )
+
+            {/* Footer decoration */}
+            <div className="absolute bottom-6 left-6 right-6">
+                <div className="h-[1px] bg-blue-100 w-full mb-4"></div>
+                <p className="text-[10px] text-blue-400 text-center uppercase tracking-widest font-bold">Jmc Swap Quiz </p>
+            </div>
+        </aside>
+    );
 }
 
 export default SideBar;

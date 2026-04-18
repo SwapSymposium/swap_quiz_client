@@ -3,17 +3,29 @@ import Topbar from '../components/TopBar';
 import SideBar from '../components/SideBar';
 import { Outlet } from 'react-router-dom';
 
-function OverLayout() 
-{
+function OverLayout() {
+
     const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
-    return (  
-        <div className="relative min-h-screen overflow-hidden">
-            {isSideBarOpen && ( <div className="fixed inset-0 bg-black/10 backdrop-blur-sm z-10" onClick={() => setIsSideBarOpen(false)}></div> )}
-            {isSideBarOpen && <SideBar onClose={() => setIsSideBarOpen(false)} />}
-            <div className={`relative z-0 transition duration-300 ${isSideBarOpen ? 'opacity-50 pointer-events-none' : ''}`}>
+    return (
+        <div className="relative min-h-screen bg-gray-50 overflow-hidden">
+            {/* Overlay for Mobile/Interaction */}
+            {isSideBarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-opacity duration-300"
+                    onClick={() => setIsSideBarOpen(false)}
+                ></div>
+            )}
+
+            {/* Sidebar */}
+            <SideBar isOpen={isSideBarOpen} onClose={() => setIsSideBarOpen(false)} />
+
+            {/* Main Content Area */}
+            <div className={`relative flex flex-col min-h-screen transition-all duration-300 ${isSideBarOpen ? 'blur-[2px]' : ''}`}>
                 <Topbar onClick={() => setIsSideBarOpen(true)} />
-                <main> <Outlet /> </main>
+                <main className="flex-grow p-4 md:p-6 lg:p-8 overflow-y-auto">
+                    <Outlet />
+                </main>
             </div>
         </div>
     );
