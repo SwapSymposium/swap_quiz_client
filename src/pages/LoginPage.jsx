@@ -35,7 +35,7 @@ function LoginForm() {
                     navigate(`/layout/${roleType}/${eventName}/${teamId}/usermanage`);
                 }
                 else {
-                    navigate(`/layout/${roleType}/${eventName}/${teamId}/guidelines`);
+                    navigate(`/layout/${roleType}/${eventName}/${teamId}/participantsGuideLines`);
                 }
             }
         }

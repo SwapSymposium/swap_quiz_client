@@ -4,7 +4,7 @@ import { useFetch } from "../hooks/useFetch";
 import { FaCheckCircle, FaUserCircle, FaExclamationTriangle, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-function GuideLines() {
+function ParticipantsGuideLines() {
 
     const apiUrl = import.meta.env.VITE_API_URL;
     const event = sessionStorage.getItem("event");
@@ -129,4 +129,4 @@ function GuideLines() {
     );
 }
 
-export default GuideLines;
+export default ParticipantsGuideLines;

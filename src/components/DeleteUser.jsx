@@ -1,43 +1,47 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDelete } from '../hooks/useDelete';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 function DeleteUser({ onClose, selectedUser, selectedEvent }) {
-    
-    const { deleteData, loading, error } = useDelete();
+
+    const { deleteData, loading } = useDelete();
 
     const handleSubmit = async () => {
-        const id = selectedUser;
         const response = await deleteData(`${apiUrl}/api/admin/deleteUser`, { event: selectedEvent })
-        if (response !== null) { alert('User deleted succesfully'); onClose(); }
+        if (response !== null) {
+            alert('User deleted successfully');
+            onClose();
+        }
     }
 
     return (
-        <div className="p-6 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md space-y-6">
-                <div className="text-center">
-                    <FontAwesomeIcon icon={faTrashAlt} className="text-red-500 text-2xl mb-2" />
-                    <h2 className="text-xl font-semibold text-gray-800">Confirm Deletion</h2>
-                    <p className="text-gray-600 mt-2">
-                        Are you sure you want to delete <span className="font-bold block"> {selectedUser} ?</span>
-                    </p>
+        <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-in fade-in zoom-in duration-200 relative z-[10000]">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-red-600 text-2xl mb-6 mx-auto">
+                    <FontAwesomeIcon icon={faTrashAlt} />
                 </div>
-                <div className="flex justify-between gap-4">
+                <h3 className="text-xl font-bold text-center text-gray-900">Confirm Deletion</h3>
+                <p className="text-gray-500 text-center mt-3 leading-relaxed">
+                    Are you sure you want to delete <span className="font-bold text-red-600 underline">{selectedUser}</span> Event?
+                </p>
+                <p className="text-gray-400 text-center text-sm mt-2">
+                    This action cannot be undone.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mt-8">
                     <button
                         onClick={onClose}
-                        className="w-1/2 cursor-pointer bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 rounded-md transition"
+                        className="py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl transition-all"
                     >
-                        <FontAwesomeIcon icon={faTimes} className="mr-2" />
-                        <span>Cancel</span>
+                        Cancel
                     </button>
                     <button
                         onClick={handleSubmit}
-                        className="w-1/2 cursor-pointer bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-md transition"
+                        disabled={loading}
+                        className="py-3 px-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all shadow-md shadow-red-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <FontAwesomeIcon icon={faTrashAlt} className="mr-2" />
-                        <span>{loading ? 'Deleting' : 'Delete'}</span>
+                        {loading ? 'Deleting...' : 'Yes, Delete'}
                     </button>
                 </div>
             </div>
@@ -46,5 +50,3 @@ function DeleteUser({ onClose, selectedUser, selectedEvent }) {
 }
 
 export default DeleteUser;
-
-

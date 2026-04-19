@@ -4,12 +4,12 @@ import { Menu, LogOut, Bell, UserCircle, ChevronDown, Settings, HelpCircle } fro
 
 const MENU_ROUTES = [
     { path: '/layout/:role/:eventName/:teamId/participantsList', name: 'Participants List', icon: 'users' },
-    { path: '/layout/:role/:eventName/:teamId/fileUpload', name: 'File Repository', icon: 'file' },
-    { path: '/layout/:role/:eventName/:teamId/imageUpload', name: 'Media Gallery', icon: 'image' },
+    { path: '/layout/:role/:eventName/:teamId/fileUpload', name: 'File Upload', icon: 'file' },
+    { path: '/layout/:role/:eventName/:teamId/imageUpload', name: 'Image Upload', icon: 'image' },
     { path: '/layout/:role/:eventName/:teamId/guidelines', name: 'Event Guidelines', icon: 'book' },
     { path: '/layout/:role/:eventName/:teamId/quiz', name: 'Assessment', icon: 'clipboard' },
     { path: '/layout/:role/:eventName/:teamId/settings', name: 'System Settings', icon: 'settings' },
-    { path: '/layout/:role/:eventName/:teamId/report', name: 'Performance Report', icon: 'chart' },
+    { path: '/layout/:role/:eventName/:teamId/report', name: 'Quiz Report', icon: 'chart' },
 ];
 
 const USER_ROLES = {
